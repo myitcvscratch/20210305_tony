@@ -11,7 +11,13 @@ base: {
 		}]
 	}
 	build: #Build & {
-		source:   repository
+		source: #Dir & {
+			steps: [{
+				do:  "local"
+				dir: "."
+				include: []
+			}]
+		}
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
 		version:  *"1.16" | string
@@ -44,14 +50,14 @@ base: {
 			from: build
 		}]
 	}
+}
+output: {
 	build: _
 	help: {
 		steps: [#Load & {
 			from: build
 		}]
 	}
-}
-output: {
 }
 
 #Dir: steps: [...#Op]
