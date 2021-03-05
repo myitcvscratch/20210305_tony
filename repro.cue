@@ -11,13 +11,7 @@ base: {
 		}]
 	}
 	build: #Build & {
-		source: #Dir & {
-			steps: [{
-				do:  "local"
-				dir: "."
-				include: []
-			}]
-		}
+		source:   repository
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
 		version:  *"1.16" | string
@@ -35,15 +29,6 @@ base: {
 		// Specify the targeted binary name
 		output: "/usr/local/bin/cmd"
 		env: [string]: string
-		steps: [#Copy & {
-			from: #Go & {
-				version:  version
-				"source": source
-				"env":    env
-			}
-			src:  output
-			dest: output
-		}]
 	}
 	help: {
 		steps: [#Load & {
