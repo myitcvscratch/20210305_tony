@@ -45,7 +45,14 @@ base: {
 		}]
 	}
 }
-output: {}
+output: {
+	build: _
+	help: {
+		steps: [#Load & {
+			from: build
+		}]
+	}
+}
 
 #Dir: steps: [...#Op]
 
