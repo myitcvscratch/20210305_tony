@@ -6,13 +6,7 @@ base: {
 	repository: #Dir
 
 	build: #Build & {
-		source: #Dir & {
-			steps: [{
-				do:  "local"
-				dir: "."
-				include: []
-			}]
-		}
+		source:   repository
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
 	}
@@ -21,15 +15,6 @@ base: {
 			from: build
 		}]
 	}
-}
-
-output: {
-	help: {
-		steps: [#Load & {
-			from: build
-		}]
-	}
-
 	build: {
 		version: *"1.16" | string
 		source: {
@@ -61,6 +46,15 @@ output: {
 			do:  "local"
 			dir: "."
 			include: []
+		}]
+	}
+}
+
+output: {
+	build: _
+	help: {
+		steps: [#Load & {
+			from: build
 		}]
 	}
 }
