@@ -3,10 +3,16 @@ package repro
 x: base & output
 
 base: {
-	repository: _
+	repository: #Dir
 
 	build: #Build & {
-		source:   repository
+		source: #Dir & {
+			steps: [{
+				do:  "local"
+				dir: "."
+				include: []
+			}]
+		}
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
 	}
