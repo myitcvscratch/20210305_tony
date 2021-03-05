@@ -44,14 +44,14 @@ base: {
 			from: build
 		}]
 	}
-}
-output: {
 	build: _
 	help: {
 		steps: [#Load & {
 			from: build
 		}]
 	}
+}
+output: {
 }
 
 #Dir: steps: [...#Op]
