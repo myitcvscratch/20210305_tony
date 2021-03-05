@@ -11,11 +11,26 @@ base: {
 		}]
 	}
 	build: #Build & {
-		source:   repository
+		source: #Dir & {
+			steps: [{
+				do:  "local"
+				dir: "."
+				include: []
+			}]
+		}
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
 		version:  *"1.16" | string
 		env: [string]: string
+		steps: [#Copy & {
+			from: #Go & {
+				version:  version
+				"source": source
+				"env":    env
+			}
+			src:  output
+			dest: output
+		}]
 	}
 	help: {
 		steps: [#Load & {
