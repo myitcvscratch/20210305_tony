@@ -1,6 +1,8 @@
 package repro
 
-x: {
+x: base & output
+
+base: {
 	repository: #Dir & {
 		steps: [{
 			do:  "local"
@@ -43,6 +45,7 @@ x: {
 		}]
 	}
 }
+output: {}
 
 #Dir: steps: [...#Op]
 
