@@ -16,15 +16,6 @@ base: {
 		output:   "/usr/local/bin/cmd"
 		version:  *"1.16" | string
 		env: [string]: string
-		steps: [#Copy & {
-			from: #Go & {
-				version:  version
-				"source": source
-				"env":    env
-			}
-			src:  output
-			dest: output
-		}]
 	}
 	help: {
 		steps: [#Load & {
