@@ -15,9 +15,6 @@ base: {
 			from: build
 		}]
 	}
-}
-
-output: {
 	help: {
 		steps: [#Load & {
 			from: build
@@ -57,6 +54,9 @@ output: {
 			include: []
 		}]
 	}
+}
+
+output: {
 }
 
 #Dir: steps: [...#Op]
