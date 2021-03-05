@@ -3,7 +3,7 @@ package repro
 x: base & output
 
 base: {
-	repository: #Dir
+	repository: _
 
 	build: #Build & {
 		source:   repository
@@ -15,6 +15,9 @@ base: {
 			from: build
 		}]
 	}
+}
+
+output: {
 	help: {
 		steps: [#Load & {
 			from: build
@@ -54,9 +57,6 @@ base: {
 			include: []
 		}]
 	}
-}
-
-output: {
 }
 
 #Dir: steps: [...#Op]
