@@ -1,30 +1,21 @@
 package repro
 
 x: {
-	repository: #Dir
-
+	repository: #Dir & {
+		steps: [{
+			// do:  "local"
+			dir: "."
+			include: []
+		}]
+	}
 	build: #Build & {
 		source:   repository
 		packages: "./cmd"
 		output:   "/usr/local/bin/cmd"
-	}
-	help: {
-		steps: [#Load & {
-			from: build
-		}]
-	}
-} & {
-	help: {
-		steps: [#Load & {
-			from: build
-		}]
-	}
-
-	build: {
-		version: *"1.16" | string
+		version:  *"1.16" | string
 		source: {
 			steps: [{
-				do:  "local"
+				// do:  "local"
 				dir: "."
 				include: []
 			}]
@@ -46,11 +37,9 @@ x: {
 			dest: output
 		}]
 	}
-	repository: {
-		steps: [{
-			do:  "local"
-			dir: "."
-			include: []
+	help: {
+		steps: [#Load & {
+			from: build
 		}]
 	}
 }
@@ -61,18 +50,18 @@ x: {
 #Op: #Fetch | #Exec | #Local | #Copy | #Load
 
 #Local: {
-	do:      "local"
+	// do:      "local"
 	dir:     string
 	include: [...string] | *[]
 }
 
 #Load: {
-	do:   "load"
+	// do:   "load"
 	from: _
 }
 
 #Exec: {
-	do: "exec"
+	// do: "exec"
 	args: [...string]
 	env?: [string]: string
 	always?: true | *false
@@ -81,12 +70,12 @@ x: {
 }
 
 #Fetch: {
-	do:  "fetch-container"
+	// do:  "fetch-container"
 	ref: string
 }
 
 #Copy: {
-	do:   "copy"
+	// do:   "copy"
 	from: _
 	src:  string | *"/"
 	dest: string | *"/"
