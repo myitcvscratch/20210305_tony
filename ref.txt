@@ -1,0 +1,120 @@
+repository: {
+    steps: [{
+        do:  "local"
+        dir: "."
+        include: []
+    }]
+}
+build: {
+    version: "1.16"
+    source: {
+        steps: [{
+            do:  "local"
+            dir: "."
+            include: []
+        }]
+    }
+    packages: "./cmd"
+    output:   "/usr/local/bin/cmd"
+    env: {}
+    steps: [{
+        do: "copy"
+        from: {
+            version: "1.16"
+            args: ["build"]
+            source: {
+                steps: [{
+                    do:  "local"
+                    dir: "."
+                    include: []
+                }]
+            }
+            env: {}
+            steps: [{
+                do:  "fetch-container"
+                ref: "docker.io/golang:1.16-alpine"
+            }, {
+                do: "exec"
+                args: ["go", "build"]
+                env: {
+                    CGO_ENABLED: "0"
+                }
+                dir: "/src"
+                mount: {
+                    "/src": {
+                        from: {
+                            steps: [{
+                                do:  "local"
+                                dir: "."
+                                include: []
+                            }]
+                        }
+                        path: "/"
+                    }
+                    "/root/.cache": "cache"
+                }
+            }]
+        }
+        src:  "/usr/local/bin/cmd"
+        dest: "/usr/local/bin/cmd"
+    }]
+}
+help: {
+    steps: [{
+        do: "load"
+        from: {
+            version: "1.16"
+            source: {
+                steps: [{
+                    do:  "local"
+                    dir: "."
+                    include: []
+                }]
+            }
+            packages: "./cmd"
+            output:   "/usr/local/bin/cmd"
+            env: {}
+            steps: [{
+                do: "copy"
+                from: {
+                    version: "1.16"
+                    args: ["build"]
+                    source: {
+                        steps: [{
+                            do:  "local"
+                            dir: "."
+                            include: []
+                        }]
+                    }
+                    env: {}
+                    steps: [{
+                        do:  "fetch-container"
+                        ref: "docker.io/golang:1.16-alpine"
+                    }, {
+                        do: "exec"
+                        args: ["go", "build"]
+                        env: {
+                            CGO_ENABLED: "0"
+                        }
+                        dir: "/src"
+                        mount: {
+                            "/src": {
+                                from: {
+                                    steps: [{
+                                        do:  "local"
+                                        dir: "."
+                                        include: []
+                                    }]
+                                }
+                                path: "/"
+                            }
+                            "/root/.cache": "cache"
+                        }
+                    }]
+                }
+                src:  "/usr/local/bin/cmd"
+                dest: "/usr/local/bin/cmd"
+            }]
+        }
+    }]
+}
