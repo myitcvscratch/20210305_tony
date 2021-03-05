@@ -3,7 +3,7 @@ package repro
 x: {
 	repository: #Dir & {
 		steps: [{
-			// do:  "local"
+			do:  "local"
 			dir: "."
 			include: []
 		}]
@@ -15,7 +15,7 @@ x: {
 		version:  *"1.16" | string
 		source: {
 			steps: [{
-				// do:  "local"
+				do:  "local"
 				dir: "."
 				include: []
 			}]
@@ -50,18 +50,18 @@ x: {
 #Op: #Fetch | #Exec | #Local | #Copy | #Load
 
 #Local: {
-	// do:      "local"
+	do:      "local"
 	dir:     string
 	include: [...string] | *[]
 }
 
 #Load: {
-	// do:   "load"
+	do:   "load"
 	from: _
 }
 
 #Exec: {
-	// do: "exec"
+	do: "exec"
 	args: [...string]
 	env?: [string]: string
 	always?: true | *false
@@ -70,12 +70,12 @@ x: {
 }
 
 #Fetch: {
-	// do:  "fetch-container"
+	do:  "fetch-container"
 	ref: string
 }
 
 #Copy: {
-	// do:   "copy"
+	do:   "copy"
 	from: _
 	src:  string | *"/"
 	dest: string | *"/"
