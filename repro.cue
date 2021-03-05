@@ -1,26 +1,40 @@
 package repro
 
-x: base & output
+x: {
+	repository: #Dir
 
-base: {
-	repository: #Dir & {
-		steps: [{
-			do:  "local"
-			dir: "."
-			include: []
+	build: #Build & {
+		source:   repository
+		packages: "./cmd"
+		output:   "/usr/local/bin/cmd"
+	}
+	help: {
+		steps: [#Load & {
+			from: build
 		}]
 	}
-	build: #Build & {
-		source: #Dir & {
+} & {
+	help: {
+		steps: [#Load & {
+			from: build
+		}]
+	}
+
+	build: {
+		version: *"1.16" | string
+		source: {
 			steps: [{
 				do:  "local"
 				dir: "."
 				include: []
 			}]
 		}
+
+		// Packages to build
 		packages: "./cmd"
-		output:   "/usr/local/bin/cmd"
-		version:  *"1.16" | string
+
+		// Specify the targeted binary name
+		output: "/usr/local/bin/cmd"
 		env: [string]: string
 		steps: [#Copy & {
 			from: #Go & {
@@ -32,18 +46,11 @@ base: {
 			dest: output
 		}]
 	}
-	help: {
-		steps: [#Load & {
-			from: build
-		}]
-	}
-}
-
-output: {
-	build: _
-	help: {
-		steps: [#Load & {
-			from: build
+	repository: {
+		steps: [{
+			do:  "local"
+			dir: "."
+			include: []
 		}]
 	}
 }
